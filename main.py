@@ -8,9 +8,9 @@ def run_puzzles(puzzles):
         print(f'Output: {result}')
 
 if __name__ == "__main__":
-    #day_1_puzzles = day_1.day_1_puzzles()
-    #day_2_puzzles = day_2.day_2_puzzles()
-    day_3_puzzles = day_3.day_2_puzzles()
+    day_1_puzzles = day_1.day_1_puzzles()
+    day_2_puzzles = day_2.day_2_puzzles()
+    day_3_puzzles = day_3.day_3_puzzles()
     puzzles_to_run = [day_3_puzzles.puzzle_1, day_3_puzzles.puzzle_2]
     run_puzzles(puzzles_to_run)
 
