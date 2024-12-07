@@ -2,7 +2,7 @@ import math
 import re
 from Common import common_functions
 
-class day_3_puzzles:
+class day_puzzles:
     def __init__(self):
         self.input_file_name = 'day_3.txt'
         self.input = common_functions.read_file(self.input_file_name, line_by_line=False, example_file=False)

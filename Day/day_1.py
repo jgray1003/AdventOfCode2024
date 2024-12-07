@@ -1,7 +1,7 @@
 import math
 from Common import common_functions
 
-class day_1_puzzles:
+class day_puzzles:
     def __init__(self):
         self.input_file_name = 'day_1.txt'
         self.input_lines = common_functions.read_file(self.input_file_name)
