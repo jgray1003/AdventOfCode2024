@@ -24,15 +24,25 @@ class day_2_puzzles:
         return self.safe_reports
 
     def puzzle_2(self):
-        print(self.__test_report([11, 12, 13, 11, 10], True))
         self.safe_reports = 0
 
-        #for levels in self.reports_list:
-        #    self.safe_reports += self.__test_report(levels, allow_mistake=True)
+        for levels in self.reports_list:
+            safe = self.__test_report(levels)
+            self.safe_reports += safe
+
+            if not safe:
+                for i in range(len(levels)):
+                    tmp_levels = levels.copy()
+                    tmp_levels.pop(i)
+                    tmp_safe = self.__test_report(tmp_levels)
+                    if tmp_safe:
+                        self.safe_reports += tmp_safe
+                        break
+
 
         return self.safe_reports
 
-    def __test_report(self, levels, allow_mistake=False):
+    def __test_report(self, levels):
         prev_increasing = None
 
         for i in range(0, len(levels) - 1):
@@ -44,19 +54,7 @@ class day_2_puzzles:
                 prev_increasing = increasing
 
             if prev_increasing != increasing or seq_1 == seq_2 or math.fabs(seq_1 - seq_2) > 3:
-                if allow_mistake is False:
-                    return 0
-
-                remove_first = self.__test_report(levels[:i] + levels[i + 1:], allow_mistake=False)
-                if remove_first == 1:
-                    return 1
-
-                remove_second = self.__test_report(levels[:i + 1] + levels[i + 2:], allow_mistake=False)
-                if remove_second == 1:
-                    return 1
-
-                if not remove_first and not remove_second:
-                    return 0
+                return 0
 
             prev_increasing = increasing
 
