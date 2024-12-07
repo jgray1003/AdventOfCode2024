@@ -1,18 +1,25 @@
-from Day import day_1
-from Day import day_2
-from Day import day_3
-
-def run_puzzles(puzzles):
-    for puzzle_function in puzzles:
-        result = puzzle_function()
-        print(f'Output: {result}')
+import importlib
 
 if __name__ == "__main__":
-    day_1_puzzles = day_1.day_1_puzzles()
-    day_2_puzzles = day_2.day_2_puzzles()
-    day_3_puzzles = day_3.day_3_puzzles()
-    puzzles_to_run = [day_3_puzzles.puzzle_1, day_3_puzzles.puzzle_2]
-    run_puzzles(puzzles_to_run)
+    # day to bool tuple, 0-index first puzzle and respective second
+    puzzles_to_run = {
+        1: (1, 1),
+        3: (1, 0)
+    }
+
+    for day_num, puzzle_tup in puzzles_to_run.items():
+        if puzzle_tup[0] == 0 and puzzle_tup[1] == 0:
+            continue
+        day_module = importlib.import_module(f'Day.day_{day_num}')
+        day_puzzle = day_module.day_puzzles()
+
+        if puzzle_tup[0] == 1:
+            result = day_puzzle.puzzle_1()
+            print(f'Output: {result}')
+        if puzzle_tup[1] == 1:
+            result = day_puzzle.puzzle_2()
+            print(f'Output: {result}')
+
 
 
 
