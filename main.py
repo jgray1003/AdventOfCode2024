@@ -15,10 +15,10 @@ if __name__ == "__main__":
 
         if puzzle_tup[0] == 1:
             result = day_puzzle.puzzle_1()
-            print(f'Output: {result}')
+            print(f'Day {day_num} Puzzle 1 Output: {result}')
         if puzzle_tup[1] == 1:
             result = day_puzzle.puzzle_2()
-            print(f'Output: {result}')
+            print(f'Day {day_num} Puzzle 2 Output: {result}')
 
 
 
