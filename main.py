@@ -3,8 +3,10 @@ import importlib
 if __name__ == "__main__":
     # day to bool tuple, 0-index first puzzle and respective second
     puzzles_to_run = {
-        1: (1, 1),
-        3: (1, 0)
+        1: (0, 0),
+        2: (0, 0),
+        3: (0, 0),
+        4: (1, 1)
     }
 
     for day_num, puzzle_tup in puzzles_to_run.items():
@@ -14,11 +16,9 @@ if __name__ == "__main__":
         day_puzzle = day_module.day_puzzles()
 
         if puzzle_tup[0] == 1:
-            result = day_puzzle.puzzle_1()
-            print(f'Day {day_num} Puzzle 1 Output: {result}')
+            print(f'Day {day_num} Puzzle 1 Output: {day_puzzle.puzzle_1()}')
         if puzzle_tup[1] == 1:
-            result = day_puzzle.puzzle_2()
-            print(f'Day {day_num} Puzzle 2 Output: {result}')
+            print(f'Day {day_num} Puzzle 2 Output: {day_puzzle.puzzle_2()}')
 
 
 
