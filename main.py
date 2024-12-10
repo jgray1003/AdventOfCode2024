@@ -6,7 +6,8 @@ if __name__ == "__main__":
         1: (0, 0),
         2: (0, 0),
         3: (0, 0),
-        4: (1, 1)
+        4: (0, 0),
+        5: (1, 1)
     }
 
     for day_num, puzzle_tup in puzzles_to_run.items():
