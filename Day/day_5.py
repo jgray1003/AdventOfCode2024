@@ -1,7 +1,5 @@
-import copy
 import math
 from Common import common_functions as cf
-from Common import dag
 
 class day_puzzles:
     def __init__(self):
@@ -79,57 +77,3 @@ class day_puzzles:
 
         return middle_index_sum
 
-    def puzzle_2_old(self):
-        incorrectly_orders_updates = []
-        middle_index_sum = 0
-
-        rules_dag = dag.DAG()
-
-        for i in range(len(self.page_ordering_rules)):
-            # parent is number that must precede child
-            parent = self.page_ordering_rules[i][0]
-            child = self.page_ordering_rules[i][1]
-
-            parent_node = None
-            if not rules_dag.contains_value(parent):
-                parent_node = dag.DAG.Node(parent, None)
-                rules_dag.add_node(parent_node)
-
-            if not rules_dag.contains_value(child):
-                child_node = dag.DAG.Node(child, parent)
-                rules_dag.add_node(child_node)
-            else:
-                # child node has new parent
-                child_node = [n for n in rules_dag.nodes if n.val == child][0]
-                child_node.set_parent(parent_node)
-        rules_dag.print()
-
-        for update in self.updates:
-            if not self.__valid_update(update):
-                incorrectly_orders_updates.append(update)
-
-        for update in incorrectly_orders_updates:
-            update_mid_index = math.floor(len(update) / 2)
-            num_pages_prior_mid = update_mid_index
-            # find page that is midindex layers deep
-            sum = 0
-            for node in rules_dag.nodes:
-                for page in update:
-                    page_depth = 0
-                    if node.val == page:
-                        tmp_node = copy.deepcopy(node)
-                        while tmp_node.parent is not None:
-                            if tmp_node.val in update:
-                                page_depth += 1
-                                tmp_node = copy.deepcopy(tmp_node.parent)
-                    if page_depth == update_mid_index:
-                        sum += page
-            print(sum)
-            res = 0
-
-            print(res)
-
-
-            middle_index_sum += update[math.floor(len(update) / 2)]
-
-        return middle_index_sum
