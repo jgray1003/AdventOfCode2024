@@ -28,3 +28,6 @@ def print_friendly_2D_arr(arr, delimiter=''):
         if delimiter != '':
             row_str = row_str[:-len(delimiter)]
         print(f'{row_str}')
+
+def tuples_equal(tup_1, tup_2):
+    return tup_1[0] == tup_2[0] and tup_1[1] == tup_2[1]
