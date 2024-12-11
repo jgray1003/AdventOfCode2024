@@ -17,8 +17,11 @@ def read_file_to_2D_array(file_name, example_file=False):
         arr.append(list(line.replace('\n', '')))
     return arr
 
-def convert_strs_to_ints(arr):
+def convert_strs_to_ints(arr:[]):
     return [int(item) for item in arr]
+
+def trim_newlines(line: str):
+    return str.replace(line, '\n', '')
 
 def print_friendly_2D_arr(arr, delimiter=''):
     for row in arr:
