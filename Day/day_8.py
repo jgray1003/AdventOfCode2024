@@ -61,39 +61,27 @@ class day_puzzles:
                 j = i + 1
                 while j < len(locations):
                     slope_delta_y, slope_delta_x = self.__get_slope(locations[i], locations[j])
+                    antenna_antinode_locs = [locations[i], locations[j]]
 
-                    antenna_one_antibody_loc = locations[i]
-                    antenna_two_antibody_loc = locations[j]
-                    antenna_antibody_locs = [locations[i], locations[j]]
-                    
-                    if locations[i] not in antinode_locations:
-                        antinode_locations.append(locations[i])
-                    if locations[j] not in antinode_locations:
-                        antinode_locations.append(locations[j])
+                    first_antinode = True
+                    for loc in antenna_antinode_locs:
+                        if loc not in antinode_locations:
+                            antinode_locations.append(loc)
+                        if first_antinode:
+                            antinode_span = (loc[0] - slope_delta_y, loc[1] - slope_delta_x)
+                            while self.__in_grid(antinode_span):
+                                if antinode_span not in antinode_locations:
+                                    antinode_locations.append(antinode_span)
+                                antinode_span = (antinode_span[0] - slope_delta_y, antinode_span[1] - slope_delta_x)
+                            first_antinode = False
+                        else:
+                            antinode_span = (loc[0] + slope_delta_y, loc[1] + slope_delta_x)
 
-                    antenna_one_span = (locations[i][0] - slope_delta_y, locations[i][1] - slope_delta_x)
-                    while self.__in_grid(antenna_one_span):
-                        if antenna_one_span not in antinode_locations:
-                            antinode_locations.append(antenna_one_span)
-                        antenna_one_span = (antenna_one_span[0] - slope_delta_y, antenna_one_span[1] - slope_delta_x)
-
-                    antenna_two_span = (locations[j][0] + slope_delta_y, locations[j][1] + slope_delta_x)
-
-                    while self.__in_grid(antenna_two_span):
-                        if antenna_two_span not in antinode_locations:
-                            antinode_locations.append(antenna_two_span)
-                        antenna_two_span = (antenna_two_span[0] + slope_delta_y, antenna_two_span[1] + slope_delta_x)
-
-                    #first_antibody_locs = [(locations[i][0] - slope_delta_y, locations[i][1] - slope_delta_x),
-                    #                       (locations[j][0] + slope_delta_y, locations[j][1] + slope_delta_x)]
-
-                    #for antibody_loc in antibody_locs:
-                    #    if antibody_loc not in antinode_locations and self.__in_grid(antibody_loc):
-                    #        antinode_locations.append(antibody_loc)
+                            while self.__in_grid(antinode_span):
+                                if antinode_span not in antinode_locations:
+                                    antinode_locations.append(antinode_span)
+                                antinode_span = (antinode_span[0] + slope_delta_y, antinode_span[1] + slope_delta_x)
 
                     j += 1
-        #print(antinode_locations)
-        #for node in antinode_locations:
-        #    self.input[node[0]][node[1]] = '#'
-        #cf.print_friendly_2D_arr(self.input)
+
         return len(antinode_locations)
