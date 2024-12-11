@@ -1,6 +1,6 @@
 import math
 from Common import common_functions as cf
-import orthogonality as orth
+from Common import orthogonality as orth
 
 class day_puzzles:
     def __init__(self):
