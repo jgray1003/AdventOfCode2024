@@ -11,7 +11,7 @@ def run_puzzle(day, puzzle_num, puzzle_funct):
     seconds = int(elapsed)
     milliseconds = int((elapsed - seconds) * 1000)
 
-    print(f'Day {day} Puzzle {puzzle_num} Output: {output} in {seconds} s {milliseconds} ms')
+    print(f'Day {day} Puzzle {puzzle_num} Output: {output}\t\tin {seconds} s {milliseconds} ms')
 
 
 if __name__ == "__main__":
@@ -26,7 +26,8 @@ if __name__ == "__main__":
         6: (0, 0),
         7: (0, 0),
         8: (0, 0),
-        9: (1, 1)
+        9: (0, 0),
+        10: (1, 1)
     }
 
     for day_num, puzzle_tup in puzzles_to_run.items():
