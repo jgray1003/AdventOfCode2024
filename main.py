@@ -17,6 +17,7 @@ def run_puzzle(day, puzzle_num, puzzle_funct):
 if __name__ == "__main__":
     # day to bool tuple, 0-index first puzzle and respective second
 
+
     puzzles_to_run = {
         1: (0, 0),
         2: (0, 0),
@@ -27,7 +28,8 @@ if __name__ == "__main__":
         7: (0, 0),
         8: (0, 0),
         9: (0, 0),
-        10: (1, 1)
+        10: (0, 0),
+        11: (1, 1)
     }
 
     for day_num, puzzle_tup in puzzles_to_run.items():
