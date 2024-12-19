@@ -6,7 +6,7 @@ from Common import orthogonality as orth
 class day_puzzles:
     def __init__(self):
         self.input_file_name = 'day_11.txt'
-        self.input = cf.read_file(self.input_file_name, line_by_line=False, example_file=True)
+        self.input = cf.read_file(self.input_file_name, line_by_line=False, example_file=False)
         self.stone_line = cf.convert_strs_to_ints(self.input.split(' '))
         self.orig_stone_line = copy.deepcopy(self.stone_line)
         self.num_blink = 0
@@ -18,6 +18,14 @@ class day_puzzles:
         ]
         self.terminal_stone_count = 0
         self.cache = {}
+
+    class Stone:
+        def __init__(self, value:int, layer:int, term_count:int):
+            self.value = value
+            self.val_str = str(self.value)
+            self.layer = layer
+            self.parent = None
+            self.terminal_node_count = term_count
 
     def __process_stone(self, stone:int):
         #if stone in self.cache:
@@ -34,31 +42,23 @@ class day_puzzles:
                 #self.cache[stone] = resulting_stones
                 return resulting_stones
 
-    def __recurse_stone(self, stone:int, layer:int, stone_num:int):
-        # if layer == self.num_blink:
-        #     stone_num += 1
-        #     return stone_num
+    def __recurse_stone(self, stone:int, layer:int):
 
-        resulting_stones = self.__process_stone(stone)
+        if layer == self.num_blink:
+            return 1
 
-        if layer == self.num_blink - 1:
-            self.terminal_stone_count += len(resulting_stones)
+        if (stone, layer) in self.cache:
+            return self.cache[(stone, layer)]
 
-        if (stone, layer) not in self.cache:
-            self.cache[(stone, layer)] = len(resulting_stones)
+        resulting_stone_counts = []
+        for child in self.__process_stone(stone):
+            resulting_stone_counts.append(self.__recurse_stone(child, layer + 1))
 
-        for stone_new in resulting_stones:
-            if (stone_new, layer) in self.cache:
-                stone_num = self.cache[(stone_new, layer)]
-            else:
-                stone_num = self.__recurse_stone(stone_new, layer + 1, stone_num)
+        resulting_stone_counts_sum = sum(resulting_stone_counts)
 
-            if (stone_new, layer) not in self.cache:
-                self.cache[(stone_new, layer)] = stone_num
+        self.cache[(stone, layer)] = resulting_stone_counts_sum
 
-
-            #return stone_sequence
-        return stone_num
+        return resulting_stone_counts_sum
 
 
     def puzzle_1(self):
@@ -74,18 +74,13 @@ class day_puzzles:
 
         return len(self.stone_line)
 
-    # 65601038650482
     def puzzle_2(self):
         self.stone_line = copy.deepcopy(self.orig_stone_line)
-        self.num_blink = 4
+        self.num_blink = 75
+        terminal_stones_length = 0
 
-        resulting_stone_line = []
-        stone_num = 0
         for stone in self.stone_line:
-            stone_num += self.__recurse_stone(stone, 0, 0)
-            #resulting_stone_line.extend(self.__recurse_stone(stone, [], 0))
+            terminal_stones_length += self.__recurse_stone(stone, 0)
 
-        #self.stone_line = copy.deepcopy(resulting_stone_line)
-        #print(stone_num)
-        return stone_num
+        return terminal_stones_length
 
